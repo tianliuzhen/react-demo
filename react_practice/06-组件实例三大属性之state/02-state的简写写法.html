@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件实例三大属性--state</title>
+</head>
+<body>
+  <div id="test"></div>
+
+  <script type="text/javascript" src="../react_js/react.development.js"></script>
+  <script type="text/javascript" src="../react_js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../react_js/babel.min.js"></script>
+
+  <script type="text/babel">
+   class MyState extends React.Component{
+      // 初始状态写赋值语句
+      state = {isHot:true}
+
+      render(){ //调用1+n次 1就是首次渲染
+        return <h1 onClick={this.demo}>今天天气很{this.state.isHot?'炎热':'凉爽'}</h1>
+      }
+      // 自定义方法写赋值语句+箭头函数(箭头函数可以改变this的指向)
+      demo=()=>{//调用几次用几次
+      console.log(this);
+
+        this.setState({
+          isHot:!this.state.isHot
+         })
+      }
+   }
+   ReactDOM.render(<MyState/>,document.getElementById('test'))
+    
+  </script>
+</body>
+</html>

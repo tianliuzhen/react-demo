@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>引出生命周期</title>
+</head>
+<body>
+  <div id="test"></div>
+
+  <script type="text/javascript" src="../react_js/react.development.js"></script>
+  <script type="text/javascript" src="../react_js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../react_js/babel.min.js"></script>
+
+  <script type="text/babel">
+    class Lift extends React.Component{
+      state={opacity:1}
+      // 组件挂载完成
+      componentDidMount(){
+        console.log("componentDidMount ... 组件挂载完成");
+        // 把定时器挂载到实例对象上
+        this.timer = setInterval(()=>{
+          let opacity = this.state.opacity;
+          opacity -= 0.2
+          if(opacity <= 0){
+            opacity = 1
+          }
+          this.setState({opacity})
+          
+        },200)
+      }
+      // 组件卸载完成
+      componentWillUnmount(){
+        console.log("componentWillUnmount ... 组件卸载完成");
+        clearInterval(this.timer);
+      }
+      render(){
+        return (
+          <div>
+            <h1 className="lift_date" style={{opacity: this.state.opacity}}>渐变效果</h1>
+            <button onClick={this.jianbian}>按钮</button>
+          </div>
+        )
+      }
+      jianbian=()=>{
+        ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+      }
+    }
+    ReactDOM.render(<Lift/>,document.getElementById('test'));
+  </script>
+</body>
+</html>

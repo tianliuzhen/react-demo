@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>高阶函数</title>
+</head>
+<body>
+  <div id="test"></div>
+  
+  <script type="text/javascript" src="../react_js/react.development.js"></script>
+  <script type="text/javascript" src="../react_js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../react_js/babel.min.js"></script>
+  <script type="text/babel">
+  /**
+   * 高阶函数:
+   *   如果一个函数符合下面2个规范中的任何一个,那该函数就是高阶函数。
+   *     1,若A函数,按收的参数是一个函数,那么A就可以称之为高阶函数。
+   *     2.若A函数,调用的返回值依然是一个函数,那么A就可以称之为高阶函数。
+   * 
+   * 常见的高阶函数有: Promise, setTimeout.arr.map()等等
+   * 
+   * 
+   * 函数的柯里化:
+   *      通过函数调用继续返回函数的方式,实现多次接收参数最后统一处理的函数编码形式。 
+   * 
+   * */ 
+    class Login extends React.Component{
+      state={
+        username:'',
+        password:''
+      }
+      render(){
+        console.log("render: ",this);
+        return (
+          <form action="https://baidu.com" onSubmit={this.handleLogin}>
+             用户名: <input onChange={this.saveFromData('username')} type="text" name='username'/>
+             密码:   <input onChange={this.saveFromData('password')} type="password" name='password'/>
+            <button>登录</button>
+          </form>
+        )
+      }
+
+      handleLogin=(event)=>{
+        console.log("handleLogin",this);
+        event.preventDefault(); // 阻断表单提交
+        const {username,password} = this.state
+        alert(`你输入的用户名是${username},密码为${password}`);
+      }
+
+      // 这里是把 this.saveFromData('xxx') 的返回值交给 onChange时间
+      saveFromData=(dataType)=>{
+        console.log(dataType,'1');
+        return (event)=>{
+          console.log(event.target.value);
+          this.setState({
+            [dataType]:event.target.value
+          })
+        }
+      }
+
+      test(){
+        console.log("test",this);
+      }
+    }
+    ReactDOM.render(<Login/>,document.getElementById('test'))
+
+   let l= new Login()
+   l.test()
+   console.log("l",l);
+  </script>
+</body>
+</html>

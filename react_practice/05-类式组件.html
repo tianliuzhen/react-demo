@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03-jsx小练习</title>
+</head>
+<body>
+  <div id="test"></div>
+
+  <script type="text/javascript" src="./react_js/react.development.js"></script>
+  <script type="text/javascript" src="./react_js/react-dom.development.js"></script>
+  <script type="text/javascript" src="./react_js/babel.min.js"></script>
+
+  <script type="text/babel">
+    class MyComponent extends React.Component{
+      render(){
+        console.log(this);
+        return <div>类式组件</div> 
+      }
+    }
+
+    ReactDOM.render(<MyComponent/>,document.getElementById('test'));
+    // 执行reactDOM.render(<Fn_component/>,.....)之后发生什么
+    /*
+      1.React解析组件标签, 找到组件, 
+      2.发现组件是使用类定义的, 随后new 出来这个该类的实例, 并通过该实例调用原型上的render方法
+      3.将render函数返回的虚拟DOM转化为真实DOM , 呈现在页面中
+
+    **/ 
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件实例三大属性--state</title>
+</head>
+<body>
+  <div id="test"></div>
+  <div id="test2"></div>
+
+  <script type="text/javascript" src="../react_js/react.development.js"></script>
+  <script type="text/javascript" src="../react_js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../react_js/babel.min.js"></script>
+
+  <script type="text/babel">
+   class MyState extends React.Component{
+     render(){
+       const {name,sex,age} = this.props;
+       return (
+          <ul>
+            <li>{name}</li>
+            <li>{sex}</li>
+            <li>{age+1}</li>
+          </ul>
+       )
+     }
+   }
+   const obj = {name:'lin',sex:'男',age:19}
+   ReactDOM.render(<MyState name='chen' sex='女' age='30'/>,document.getElementById('test2'))
+  //  ReactDOM.render(<MyState name='lin' sex='男' age='18'/>,document.getElementById('test'))
+   ReactDOM.render(<MyState {...obj}/>,document.getElementById('test'))
+    
+  </script>
+</body>
+</html>

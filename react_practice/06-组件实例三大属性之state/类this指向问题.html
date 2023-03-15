@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+      class Person{
+        constructor(name,age){
+            this.name = name
+            this.age = age
+        }
+        study(){
+            // study 放在哪里？--- 类的原型对象上，供实例使用
+            // 通过 new Person实例调用 study，此时的this指的就是 person实例
+            console.log(this);
+        }
+      }
+
+     let person= new Person("allen",18)
+     person.study() // 通过实例对象调用study() 方法
+
+     // 如果传递一下引用，此时再调用 study() ，this就被限制了
+     let study= person.study
+     // 此时直接调用 study()，就是函数的直接调用，所以对象是undefined
+     study()
+
+    </script>
+</body>
+</html>

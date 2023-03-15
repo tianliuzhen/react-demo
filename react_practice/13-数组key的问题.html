@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script type="text/javascript" src="./react_js/react.development.js"></script>
+    <script type="text/javascript" src="./react_js/react-dom.development.js"></script>
+    <script type="text/javascript" src="./react_js/babel.min.js"></script>
+    <script type="text/babel">
+        class Person extends React.Component {
+            state = {
+                persons: [
+                    { id: 1, name: "李白", age: 100 },
+                    { id: 2, name: "韩信", age: 100 }
+                ]
+            }
+            add = (params) => {
+                const { persons } = this.state
+                const p = { id: persons.length + 1, name: "孙悟空", age: 900 }
+                this.setState({ persons: [p, ...persons] })
+            }
+
+
+            render() {
+                return (
+                    <div>
+                        <h2>展示刺客信息: 使用下标作为key(修改数据顺序为导致dom重排)</h2>
+                        <button onClick={this.add}>添加一个刺客</button>
+                        <ul>{
+                            this.state.persons.map((item, index) => {
+                                return <li key={index}>{item.name}--{item.age}&nbsp;<input type="text" /></li>
+                            })
+                        }
+                        </ul>
+                        <hr />
+                        <h2>展示刺客信息: 使用唯一id作为key（不会有任何问题）</h2>
+                        <button onClick={this.add}>添加一个刺客</button>
+                        <ul>{
+                            this.state.persons.map((item) => {
+                                return <li key={item.id}>{item.name}--{item.age}&nbsp;<input type="text" /></li>
+                            })
+                        }
+                        </ul>
+                    </div>
+
+                )
+            }
+        }
+        ReactDOM.render(<Person />, document.getElementById("test"))
+    </script>
+</body>
+
+</html>
